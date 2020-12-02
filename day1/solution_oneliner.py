@@ -1,1 +1,0 @@
-[print([b2, b3][i](re(s.argv[1]), s.argv[2] if len(s.argv) > 2 else 2020)[0]) for i in range(2) for b3 in [lambda x, w: [(a,b, c, a*b*c) for c in x for b in x for a in x if a+b+c == w]] for b2 in [lambda x, w: [(a,b, a*b) for b in x for a in x if a+b == w]] for re in (lambda f: [int(x.strip()) for x in open(f, "r").readlines()], ) for s in (__builtins__.__import__("sys"), )]
