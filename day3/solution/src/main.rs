@@ -1,10 +1,9 @@
 use std::{
     env,
     fs::File,
-    io::{BufReader, BufRead},
-    path::Path
+    io::{BufRead, BufReader},
+    path::Path,
 };
-
 
 struct Map {
     inner: Vec<String>,
@@ -16,14 +15,15 @@ impl Map {
         let reader = BufReader::new(fp);
 
         Map {
-            inner: reader.lines()
-                         .map(|line| line.unwrap())
-                         .collect()
+            inner: reader.lines().map(|line| line.unwrap()).collect(),
         }
     }
 
     fn get(&self, x_pos: usize, y_pos: usize) -> char {
-        self.inner[y_pos].chars().nth(x_pos % self.inner[0].len()).unwrap()
+        self.inner[y_pos]
+            .chars()
+            .nth(x_pos % self.inner[0].len())
+            .unwrap()
     }
 
     fn is_tree(&self, x_pos: usize, y_pos: usize) -> bool {

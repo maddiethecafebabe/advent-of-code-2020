@@ -1,18 +1,17 @@
-use std::io::{self, BufRead};
-use std::fs;
 use std::env;
-
+use std::fs;
+use std::io::{self, BufRead};
 
 #[derive(Debug)]
 enum BruteOption {
     Double(u32, u32, u32),
     Triple(u32, u32, u32, u32),
-    None
+    None,
 }
 
 fn read_entries(path: &String) -> io::Result<Vec<u32>> {
     let fp = fs::File::open(&path)?;
-    let mut r = vec!();
+    let mut r = vec![];
 
     for line in io::BufReader::new(fp).lines() {
         r.push(line?.parse().unwrap())
@@ -29,8 +28,7 @@ fn brute(entries: &Vec<u32>, wanted: u32, summand_cnt: u8) -> BruteOption {
                 }
             }
         }
-    }
-    else if summand_cnt == 3 {
+    } else if summand_cnt == 3 {
         for n in entries.iter() {
             for i in entries.iter() {
                 for a in entries.iter() {
@@ -45,7 +43,7 @@ fn brute(entries: &Vec<u32>, wanted: u32, summand_cnt: u8) -> BruteOption {
 }
 
 fn main() {
-    let args: Vec<String> = env::args().collect();    
+    let args: Vec<String> = env::args().collect();
     if args.len() < 2 {
         println!("usage: {} path/to/input.txt", args[0]);
         return;
