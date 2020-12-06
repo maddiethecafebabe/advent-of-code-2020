@@ -26,3 +26,8 @@
 [[(print(f"Day5:\n  Part1: {[ps.sort(), ps][-1][-1]}"), print(f"  Part2: {[*filter(lambda pid: pid+1 not in ps and pid not in [ps[0], ps[-1]],ps)][0] + 1}"))] for ps in [[(int(p[:-3].replace("B", "1").replace("F", "0"), 2) * 8 + int(p[-3:].replace("R", "1").replace("L", "0"), 2)) for p in open(__builtins__.__import__("sys").argv[1], "r").read().strip().split("\n")]]]
 ```
 
+## Day 6
+```py
+print("Day6\n  Part1: {}\n  Part2: {}".format(sum(len({c for c in group.replace("\n", "")}) for group in open(__builtins__.__import__("sys").argv[1], "r").read().strip().split("\n\n")), sum(sum(all(c in p for p in group.split("\n")) for c in "abcdefghijklmnopqrstuvwxyz") for group in open(__builtins__.__import__("sys").argv[1], "r").read().strip().split("\n\n"))))
+```
+
