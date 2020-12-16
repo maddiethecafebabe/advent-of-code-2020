@@ -38,7 +38,7 @@ def do_part2(inp: Input):
                 continue
             elif len(v) == 1:                               # for every not ambigous field
                 for v2 in possibilities.values():           
-                    if v[0] in v2 and v2 != v:              # remove it from the possible fields of 
+                    if v[0] in v2 and v2 is not v:          # remove it from the possible fields of 
                         v2.remove(v[0])                     # all others
     return prod(inp.your_ticket[possibilities[name][0]] for name in possibilities.keys() if name.startswith("departure"))
 
