@@ -24,24 +24,22 @@ def do_part1(inp: Input):
 def do_part2(inp: Input):
     valid_tiks = [x for x in filter(lambda tik: all(any(any(l <= v <= u for l, u in ranges) for _, ranges in inp.rules) for v in tik), inp.nearby_tickets)]
 
+    # get what fieds each rule could map to
     possibilities = {}
     for name, ranges in inp.rules:
         for fidx in range(len(valid_tiks[0])):
             if all(any(l <= tik[fidx] <= u for l, u in ranges) for tik in valid_tiks):
-                if name in possibilities:
-                    possibilities[name].append(fidx)
-                else:
-                    possibilities[name] = [fidx]
+                possibilities[name] = [fidx] + possibilities.get(name, [])
 
     # figure out which rule belongs to which field
-    while any(len(x) > 1 for x in possibilities.values()):
+    while any(len(x) > 1 for x in possibilities.values()):  # while there are still ambigious fields
         for k, v in possibilities.items():
             if len(v) > 1:
                 continue
-            elif len(v) == 1:
-                for v2 in possibilities.values():
-                    if v[0] in v2 and v2 != v:
-                        v2.remove(v[0])
+            elif len(v) == 1:                               # for every not ambigous field
+                for v2 in possibilities.values():           
+                    if v[0] in v2 and v2 != v:              # remove it from the possible fields of 
+                        v2.remove(v[0])                     # all others
     return prod(inp.your_ticket[possibilities[name][0]] for name in possibilities.keys() if name.startswith("departure"))
 
 def test():
